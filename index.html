@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بحبك ❤️</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:radial-gradient(circle at top,#ffd9e6,#f7b6cc 45%,#351c35);color:#fff;overflow-x:hidden}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden}.heart{position:absolute;bottom:-60px;font-size:25px;animation:float 9s linear infinite;opacity:.55}
+@keyframes float{to{transform:translateY(-115vh) rotate(360deg);opacity:0}}
+.screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative}
+.card{width:min(620px,94vw);padding:38px 25px;border-radius:30px;background:#ffffff18;border:1px solid #ffffff45;backdrop-filter:blur(12px);box-shadow:0 20px 70px #170b2a80;text-align:center;animation:pop .9s ease}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+h1{font-size:clamp(42px,10vw,78px);margin:5px 0 18px;text-shadow:0 5px 25px #ff4d8d}
+.sub{font-size:18px;opacity:.9;margin-bottom:24px}.date{padding:14px;border-radius:16px;border:0;width:100%;font-size:18px;margin-bottom:15px}
+.btn{border:0;border-radius:999px;padding:14px 30px;font-size:18px;cursor:pointer;background:#fff;color:#a3265e;font-weight:bold;box-shadow:0 10px 25px #0003}
+.cover{width:min(430px,90vw);max-height:58vh;object-fit:cover;border-radius:25px;box-shadow:0 18px 50px #0007;border:3px solid #ffffff80}
+.buttons{display:flex;gap:15px;justify-content:center;align-items:center;margin-top:22px;min-height:70px;position:relative}
+.no{position:relative;transition:.15s}.yes{background:#ff4d8d;color:white}
+.hidden{display:none!important}
+.memory{max-width:1000px;margin:auto;text-align:center;padding:50px 18px}.memory h2{font-size:36px;margin:0 0 10px}.memory p{font-size:20px;line-height:1.9}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:28px}
+.grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:22px;box-shadow:0 12px 35px #0005;transition:.4s}
+.grid img:hover{transform:translateY(-8px) scale(1.02)}
+.final{margin:55px auto 20px;max-width:850px;padding:28px;border-radius:25px;background:#ffffff16;border:1px solid #fff4;font-size:21px;line-height:2.2}
+.fade{animation:fade 1s ease}@keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+small{opacity:.7}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+
+<section class="screen" id="login">
+  <div class="card">
+    <div style="font-size:42px">❤️</div>
+    <h1>بحبك</h1>
+    <div class="sub">في تاريخ واحد بس يفتحلك كل ذكرياتنا...</div>
+    <input class="date" id="date" type="date">
+    <button class="btn" onclick="enter()">ادخلي ❤️</button>
+    <p id="err" style="color:#ffd0dc;min-height:24px"></p>
+  </div>
+</section>
+
+<section class="screen hidden" id="welcome">
+  <div class="card fade">
+    <img class="cover" src="images/photo1.jpg" alt="ذكرياتنا">
+    <h2 style="font-size:32px;margin-bottom:4px">هاتي بوسه الأول 😌❤️</h2>
+    <div class="buttons" id="buttons">
+      <button class="btn no" id="no">لا 😂</button>
+      <button class="btn yes" onclick="memories()">من عيني ❤️</button>
+    </div>
+  </div>
+</section>
+
+<section class="memory hidden" id="memories">
+  <h2>يا عمري انتي أحلى ذكرياتي معاكي ❤️</h2>
+  <p>تعالي نفتكرها...</p>
+  <div class="grid" id="grid"></div>
+  <div class="final">
+    يا أجمل بنت في الدنيا، بعتهالي ربنا يحلم عمري وحياتي، يا هدفي ومنايا انتي يا قمري ❤️<br>
+    كل صورة من دول بذكرى حلوة، سوا عمر قضيتو معاكي وكان أجمل أيامي.<br>
+    بحبك وهفضل أحبك لحد آخر نفس فيا ❤️
+  </div>
+</section>
+
+<script>
+const bg=document.getElementById('bg');
+for(let i=0;i<28;i++){let s=document.createElement('span');s.className='heart';s.textContent=['❤','♡','💕','💗'][i%4];s.style.left=Math.random()*100+'%';s.style.animationDelay=Math.random()*8+'s';s.style.fontSize=(18+Math.random()*25)+'px';bg.appendChild(s)}
+function enter(){
+ const v=document.getElementById('date').value;
+ if(v!=='2025-05-14'){document.getElementById('err').textContent='التاريخ ده مش هو السر ❤️';return}
+ document.getElementById('login').classList.add('hidden');
+ document.getElementById('welcome').classList.remove('hidden');
+}
+const no=document.getElementById('no');
+function moveNo(){
+ const b=document.getElementById('buttons'), r=b.getBoundingClientRect();
+ const x=(Math.random()-.5)*Math.min(260,r.width-80), y=(Math.random()-.5)*80;
+ no.style.transform=`translate(${x}px,${y}px)`;
+}
+no.addEventListener('mouseenter',moveNo); no.addEventListener('touchstart',e=>{e.preventDefault();moveNo()});
+function memories(){
+ document.getElementById('welcome').classList.add('hidden');
+ document.getElementById('memories').classList.remove('hidden');
+ const g=document.getElementById('grid');
+ for(let i=1;i<=10;i++){let img=document.createElement('img');img.src=`images/photo${i}.jpg`;img.onerror=()=>img.remove();g.appendChild(img)}
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
